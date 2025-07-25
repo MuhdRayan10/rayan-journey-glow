@@ -89,6 +89,9 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
       {/* Noise Texture Overlay */}
       <div className="noise-overlay" />
+
+      {/* Star Overlay */}
+      <div className="stars-overlay" />
       
       {/* Radial Glow Behind Blob */}
       <div className="radial-glow" />

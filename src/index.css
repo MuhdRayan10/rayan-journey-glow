@@ -165,6 +165,31 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
     z-index: 1;
   }
 
+  /* Starry background overlay */
+  .stars-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.25;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Ccircle cx='10' cy='20' r='1' fill='white'/%3E%3Ccircle cx='30' cy='80' r='1' fill='white'/%3E%3Ccircle cx='50' cy='50' r='1' fill='white'/%3E%3Ccircle cx='80' cy='10' r='1' fill='white'/%3E%3Ccircle cx='90' cy='150' r='1' fill='white'/%3E%3Ccircle cx='120' cy='60' r='1' fill='white'/%3E%3Ccircle cx='150' cy='90' r='1' fill='white'/%3E%3Ccircle cx='70' cy='130' r='1' fill='white'/%3E%3Ccircle cx='160' cy='40' r='1' fill='white'/%3E%3Ccircle cx='190' cy='170' r='1' fill='white'/%3E%3Ccircle cx='20' cy='140' r='1' fill='white'/%3E%3Ccircle cx='110' cy='180' r='1' fill='white'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    animation: star-scroll 80s linear infinite, stars-twinkle 4s ease-in-out infinite;
+  }
+
+  @keyframes stars-twinkle {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.15; }
+  }
+
+  @keyframes star-scroll {
+    from { background-position: 0 0; }
+    to { background-position: -200px -200px; }
+  }
+
   @keyframes noise-pan {
     0% { transform: translate(0, 0); }
     25% { transform: translate(-5%, -5%); }
