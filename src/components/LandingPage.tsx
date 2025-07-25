@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Github, Linkedin, Twitter } from 'lucide-react';
-import { SwirlButton } from './SwirlButton';
+import { RgbButton } from './RgbButton';
 
 interface LandingPageProps {
   onStartJourney: () => void;
@@ -12,7 +12,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
   const [stage, setStage] = useState<'empty' | 'typing1' | 'pause' | 'typing2' | 'complete'>('empty');
   const [showButton, setShowButton] = useState(false);
 
-  const text1 = "Hi, my name is Rayan";
+  const text1 = "Hi, my name is Rayan.";
   const text2 = "Welcome to my world";
 
   useEffect(() => {
@@ -65,17 +65,17 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
       scale: 1,
     },
     typing1: {
-      width: '320px',
+      width: '380px',
       height: '70px',
       scale: 1.02,
     },
     typing2: {
-      width: '400px',
+      width: '450px',
       height: '80px',
       scale: 1.05,
     },
     complete: {
-      width: '400px',
+      width: '450px',
       height: '80px',
       scale: 1,
     }
@@ -87,34 +87,40 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Noise Texture Overlay */}
+      <div className="noise-overlay" />
+      
+      {/* Radial Glow Behind Blob */}
+      <div className="radial-glow" />
+      
       {/* Background particles */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple/10 rounded-full blur-3xl opacity-20 animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/5 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl opacity-20 animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/3 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Navigation */}
       <nav className="fixed top-6 right-6 z-50">
         <div className="glass rounded-pill px-6 py-3">
           <div className="flex gap-6 text-sm font-medium">
-            <a href="#" className="text-foreground hover:text-purple transition-colors">Home</a>
-            <a href="#journey" className="text-muted-foreground hover:text-purple transition-colors">Journey</a>
-            <a href="#projects" className="text-muted-foreground hover:text-purple transition-colors">Projects</a>
-            <a href="#contact" className="text-muted-foreground hover:text-purple transition-colors">Contact</a>
+            <a href="#" className="text-foreground hover:text-white transition-colors">Home</a>
+            <a href="#journey" className="text-muted-foreground hover:text-white transition-colors">Journey</a>
+            <a href="#projects" className="text-muted-foreground hover:text-white transition-colors">Projects</a>
+            <a href="#contact" className="text-muted-foreground hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </nav>
 
       {/* Social Links */}
       <div className="fixed bottom-6 left-6 z-50 flex flex-col gap-3">
-        <a href="#" className="glass rounded-full p-3 hover:glow-purple-subtle transition-all duration-300 group">
-          <Github size={20} className="text-muted-foreground group-hover:text-purple transition-colors" />
+        <a href="https://github.com/MuhdRayan10" target="_blank" rel="noopener noreferrer" className="glass rounded-full p-3 hover:glow-white-subtle transition-all duration-300 group">
+          <Github size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
         </a>
-        <a href="#" className="glass rounded-full p-3 hover:glow-purple-subtle transition-all duration-300 group">
-          <Linkedin size={20} className="text-muted-foreground group-hover:text-purple transition-colors" />
+        <a href="https://www.linkedin.com/in/muhammed-rayan-savad-004310127/" target="_blank" rel="noopener noreferrer" className="glass rounded-full p-3 hover:glow-white-subtle transition-all duration-300 group">
+          <Linkedin size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
         </a>
-        <a href="#" className="glass rounded-full p-3 hover:glow-purple-subtle transition-all duration-300 group">
-          <Twitter size={20} className="text-muted-foreground group-hover:text-purple transition-colors" />
+        <a href="#" className="glass rounded-full p-3 hover:glow-white-subtle transition-all duration-300 group">
+          <Twitter size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
         </a>
       </div>
 
@@ -129,11 +135,11 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
         >
           {/* Terminal Icon */}
           <div className="absolute left-4 flex items-center">
-            <Terminal size={24} className="text-purple" />
+            <Terminal size={24} className="text-white font-bold" strokeWidth={2.5} />
           </div>
           
           {/* Text Content */}
-          <div className="ml-12 mr-6 font-mono text-lg text-foreground">
+          <div className="ml-12 mr-6 font-mono text-lg text-foreground font-bold">
             {text && (
               <span className={stage !== 'complete' ? 'typing-cursor' : ''}>
                 {text}
@@ -143,7 +149,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
 
           {/* Inner glow effect */}
           {(stage === 'typing1' || stage === 'typing2') && (
-            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-transparent via-purple/20 to-transparent animate-pulse" />
+            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
           )}
         </motion.div>
 
@@ -156,9 +162,9 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
           }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <SwirlButton onClick={onStartJourney}>
+          <RgbButton onClick={onStartJourney}>
             Start your journey
-          </SwirlButton>
+          </RgbButton>
         </motion.div>
       </div>
 
@@ -174,7 +180,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-6 bg-purple rounded-full opacity-60"
+              className="w-1 h-6 bg-white rounded-full opacity-60"
             />
           </div>
         </motion.div>

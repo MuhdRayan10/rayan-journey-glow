@@ -2,21 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Rayan's Portfolio - Hyper-modern Glassmorphic Design System
-All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
+/* Rayan's Portfolio - Hyper-modern Monochrome Design System
+All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
 */
 
 @layer base {
   :root {
     /* Core Background & Foreground */
-    --bg-main: 240 11% 5%; /* #0e0e10 - very dark gray/near black */
-    --fg-main: 0 0% 100%; /* #ffffff */
-    --fg-dim: 220 9% 67%; /* #9ca3af */
+    --bg-main: 0 0% 0%; /* #000000 - pure black */
+    --fg-main: 0 0% 100%; /* #ffffff - pure white */
+    --fg-dim: 0 0% 70%; /* #b3b3b3 - light gray */
     
-    /* Purple Accent System */
-    --accent-purple: 258 90% 66%; /* #8b5cf6 */
-    --accent-purple-light: 258 100% 85%; /* lighter purple */
-    --accent-purple-glow: 258 90% 66%; /* for rgba usage */
+    /* Monochrome Accent System */
+    --accent-white: 0 0% 100%; /* #ffffff */
+    --accent-gray: 0 0% 50%; /* #808080 */
+    --accent-black: 0 0% 0%; /* #000000 */
     
     /* Glassmorphism System */
     --glass-bg: 0 0% 100%; /* for rgba(255,255,255,0.06) */
@@ -30,8 +30,8 @@ All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
     --r-pill: 9999px;
     
     /* Shadows */
-    --shadow-glass: 0 0 24px -8px rgba(139,92,246,0.4), 0 10px 40px rgba(0,0,0,0.4);
-    --shadow-glow: 0 0 40px rgba(139,92,246,0.6);
+    --shadow-glass: 0 0 24px -8px rgba(255,255,255,0.1), 0 10px 40px rgba(0,0,0,0.8);
+    --shadow-glow: 0 0 40px rgba(255,255,255,0.3);
     
     /* Design System Tokens */
     --background: var(--bg-main);
@@ -40,38 +40,38 @@ All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
     --card-foreground: var(--fg-main);
     --popover: var(--bg-main);
     --popover-foreground: var(--fg-main);
-    --primary: var(--accent-purple);
-    --primary-foreground: var(--fg-main);
-    --secondary: 240 6% 15%;
+    --primary: var(--accent-white);
+    --primary-foreground: var(--bg-main);
+    --secondary: 0 0% 10%;
     --secondary-foreground: var(--fg-main);
-    --muted: 240 6% 15%;
+    --muted: 0 0% 10%;
     --muted-foreground: var(--fg-dim);
-    --accent: var(--accent-purple);
-    --accent-foreground: var(--fg-main);
+    --accent: var(--accent-white);
+    --accent-foreground: var(--bg-main);
     --destructive: 0 84% 60%;
     --destructive-foreground: var(--fg-main);
-    --border: 240 6% 20%;
-    --input: 240 6% 15%;
-    --ring: var(--accent-purple);
+    --border: 0 0% 20%;
+    --input: 0 0% 10%;
+    --ring: var(--accent-white);
     --radius: var(--r-sm);
   }
 
   .light {
     --bg-main: 0 0% 100%;
-    --fg-main: 240 11% 5%;
-    --fg-dim: 220 9% 40%;
+    --fg-main: 0 0% 0%;
+    --fg-dim: 0 0% 30%;
     --background: var(--bg-main);
     --foreground: var(--fg-main);
     --card: var(--bg-main);
     --card-foreground: var(--fg-main);
     --popover: var(--bg-main);
     --popover-foreground: var(--fg-main);
-    --secondary: 240 5% 96%;
+    --secondary: 0 0% 96%;
     --secondary-foreground: var(--fg-main);
-    --muted: 240 5% 96%;
+    --muted: 0 0% 96%;
     --muted-foreground: var(--fg-dim);
-    --border: 240 6% 90%;
-    --input: 240 6% 96%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
   }
 }
 
@@ -107,17 +107,17 @@ All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
     @apply glass rounded-full px-6 py-3 transition-all duration-300 hover:shadow-lg;
   }
 
-  /* Purple Glow Effects */
-  .glow-purple {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  /* White Glow Effects */
+  .glow-white {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
   }
 
-  .glow-purple-subtle {
-    box-shadow: 0 0 24px rgba(139, 92, 246, 0.3);
+  .glow-white-subtle {
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
   }
 
-  /* Swirling Border Animation */
-  .swirl-border {
+  /* RGB Gradient Border Animation */
+  .rgb-border {
     position: relative;
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(20px);
@@ -125,22 +125,65 @@ All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
     overflow: hidden;
   }
 
-  .swirl-border::before {
+  .rgb-border::before {
     content: '';
     position: absolute;
     inset: 0;
     padding: 2px;
-    background: conic-gradient(from 0deg, transparent, rgba(139, 92, 246, 0.8), transparent);
+    background: conic-gradient(from 0deg, 
+      #ff0000, #ff8000, #ffff00, #80ff00, 
+      #00ff00, #00ff80, #00ffff, #0080ff, 
+      #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000);
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
-    animation: swirl 3s linear infinite;
+    -webkit-mask-composite: xor;
+    animation: rgb-rotate 3s linear infinite;
   }
 
-  @keyframes swirl {
+  .rgb-border:hover::before {
+    animation: rgb-rotate 1s linear infinite;
+  }
+
+  @keyframes rgb-rotate {
     to {
       transform: rotate(360deg);
     }
+  }
+
+  /* Noise Texture */
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    animation: noise-pan 20s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes noise-pan {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5%, -5%); }
+    50% { transform: translate(-10%, 5%); }
+    75% { transform: translate(-5%, -10%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Radial Glow */
+  .radial-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 2;
   }
 
   /* Hover Tilt Effect */
@@ -156,7 +199,7 @@ All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
   .typing-cursor::after {
     content: '|';
     animation: blink 1s infinite;
-    color: hsl(var(--accent-purple));
+    color: hsl(var(--accent-white));
   }
 
   @keyframes blink {
@@ -174,6 +217,6 @@ All colors MUST be HSL. Purple neon lighting with white/black monochrome base.
 
   .blob.expanded {
     transform: scale(1.2);
-    box-shadow: 0 0 60px rgba(139, 92, 246, 0.5), 0 20px 80px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.2), 0 20px 80px rgba(0, 0, 0, 0.8);
   }
 }
