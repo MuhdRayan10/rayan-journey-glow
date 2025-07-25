@@ -13,7 +13,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
   const [showButton, setShowButton] = useState(false);
 
   const text1 = "Hi, my name is Rayan.";
-  const text2 = "Welcome to my world";
+  const text2 = "Welcome to my world!";
 
   useEffect(() => {
     const timer1 = setTimeout(() => setStage('typing1'), 1000);

@@ -136,13 +136,13 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
       #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000);
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
+    mask-composite: exclude;
     -webkit-mask-composite: xor;
-    animation: rgb-rotate 3s linear infinite;
+    animation: none;
   }
 
   .rgb-border:hover::before {
-    animation: rgb-rotate 1s linear infinite;
+    animation: none;
   }
 
   @keyframes rgb-rotate {
