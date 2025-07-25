@@ -18,6 +18,16 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				grotesk: ['Space Grotesk', 'system-ui', 'sans-serif'],
+				mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+			},
+			fontSize: {
+				'display-xl': 'clamp(42px, 6vw, 96px)',
+				'display-lg': 'clamp(32px, 4.5vw, 64px)',
+				'body-lg': ['20px', { lineHeight: '1.6' }],
+				'body': ['18px', { lineHeight: '1.6' }],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -52,21 +62,19 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+				purple: {
+					DEFAULT: 'hsl(var(--accent-purple))',
+					glow: 'hsla(var(--accent-purple-glow), 0.35)',
+					light: 'hsl(var(--accent-purple-light))',
+				},
 			},
 			borderRadius: {
+				'xs': 'var(--r-xs)',
+				'sm': 'var(--r-sm)',
+				'md': 'var(--r-md)',
+				'xl': 'var(--r-xl)',
+				'pill': 'var(--r-pill)',
 				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
 				'accordion-down': {
