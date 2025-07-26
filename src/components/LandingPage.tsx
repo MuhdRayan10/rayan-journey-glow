@@ -81,9 +81,16 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
     }
   };
 
-  const currentVariant = stage === 'empty' ? 'empty' : 
-                        stage === 'typing1' ? 'typing1' :
-                        stage === 'typing2' || stage === 'complete' ? 'typing2' : 'empty';
+  const currentVariant =
+    stage === 'empty'
+      ? 'empty'
+      : stage === 'typing1'
+        ? 'typing1'
+        : stage === 'typing2' || stage === 'complete'
+          ? 'typing2'
+          : 'empty';
+
+  const blobYOffset = stage === 'typing2' || stage === 'complete' || stage === 'pause' ? 60 : 0;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
@@ -130,16 +137,29 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
       {/* Main Content */}
       <div className="flex flex-col items-center space-y-12">
         {/* Dynamic Blob Terminal */}
-        <motion.div
-          className="blob flex items-center justify-center relative"
-          variants={blobVariants}
-          animate={currentVariant}
-          style={{ borderRadius: '40px' }}
-        >
-          {/* Terminal Icon */}
-          <div className="absolute left-4 flex items-center">
-            <Terminal size={24} className="text-white font-bold" strokeWidth={2.5} />
-          </div>
+        <motion.div animate={{ y: blobYOffset }} className="flex flex-col items-center space-y-6">
+          {/* Name Heading */}
+          {(stage === 'pause' || stage === 'typing2' || stage === 'complete') && (
+            <motion.h1
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: -45 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="text-display-lg font-bold text-white text-center -mb-2"
+            >
+              Muhammed Rayan Savad
+            </motion.h1>
+          )}
+          {/* Dynamic Blob Terminal */}
+          <motion.div
+            className="blob flex items-center justify-center relative"
+            variants={blobVariants}
+            animate={currentVariant}
+            style={{ borderRadius: '40px' }}
+          >
+            {/* Terminal Icon */}
+            <div className="absolute left-4 flex items-center">
+              <Terminal size={24} className="text-white font-bold" strokeWidth={2.5} />
+            </div>
           
           {/* Text Content */}
           <div className="ml-12 mr-6 font-mono text-lg text-foreground font-bold">
@@ -152,8 +172,9 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
 
           {/* Inner glow effect */}
           {(stage === 'typing1' || stage === 'typing2') && (
-            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
-          )}
+              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
+            )}
+          </motion.div>
         </motion.div>
 
         {/* CTA Button */}

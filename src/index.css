@@ -181,8 +181,8 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
   }
 
   @keyframes stars-twinkle {
-    0%, 100% { opacity: 0.05; }
-    50% { opacity: 0.15; }
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.2; }
   }
 
   @keyframes star-scroll {
