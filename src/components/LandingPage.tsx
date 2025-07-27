@@ -138,18 +138,31 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
       {/* Main Content */}
       <div className="flex flex-col items-center space-y-12">
         {/* Dynamic Blob Terminal */}
-        <motion.div animate={{ y: blobYOffset }} className="flex flex-col items-center space-y-6">
+        <motion.div animate={{ y: blobYOffset }} className="flex flex-col items-center">
           {/* Name Heading */}
           {(stage === 'pause' || stage === 'typing2' || stage === 'complete') && (
             <motion.h1
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: -45 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="text-display-lg font-bold text-white text-center -mb-2"
+              className="text-display-lg font-bold text-white text-center mb-4"
             >
               Muhammed Rayan Savad
             </motion.h1>
           )}
+
+          {/* Glitch Subtitle - positioned between name and blob */}
+          {(stage === 'typing2' || stage === 'complete') && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1}}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="text-center mb-6"
+            >
+              <GlitchText text="TECH ENTHUSIAST" />
+            </motion.div>
+          )}
+
           {/* Dynamic Blob Terminal */}
           <motion.div
             className="blob flex items-center justify-center relative"
@@ -177,18 +190,6 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
             )}
           </motion.div>
         </motion.div>
-
-        {/* Subtext Under Name */}
-        {(stage === 'typing2' || stage === 'complete') && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1}}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-center"
-          >
-            <GlitchText text="TECH ENTHUSIAST" />
-          </motion.div>
-        )}
 
         {/* CTA Button */}
         <motion.div

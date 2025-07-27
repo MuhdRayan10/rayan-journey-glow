@@ -125,15 +125,30 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
       {/* Header */}
       <div className="relative z-10 pt-8 pb-6">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between">
-            {/* Dynamic Activity Title */}
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground">
-              {currentData.title}
-            </h1>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            {/* Left side - Title and Tags */}
+            <div className="flex items-center gap-6 flex-wrap">
+              {/* Dynamic Activity Title */}
+              <h1 className="text-3xl md:text-5xl font-bold text-foreground">
+                {currentData.title}
+              </h1>
+              
+              {/* Tags - moved to header */}
+              <div className="flex flex-wrap gap-2">
+                {currentData.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="glass rounded-pill px-3 py-1 text-xs font-medium text-foreground"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
             
-            {/* Top Right Navigation */}
+            {/* Right side - Navigation */}
             <div className="flex items-center gap-4">
-              {/* Progress Indicator - moved to top right */}
+              {/* Progress Indicator */}
               <div className="glass rounded-pill px-4 py-2 flex items-center space-x-3">
                 {journeySlides.map((slide, index) => (
                   <button
@@ -179,86 +194,85 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="h-full"
             >
-              {/* New Layout with repositioned images and text */}
-              <div className="relative h-full min-h-[70vh]">
-                {/* Image A - Top Right */}
-                <motion.div
-                  className="absolute top-0 right-0 w-80 h-60 glass-card hover-tilt"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img
-                    src={currentData.image1}
-                    alt={`${currentData.title} - Workspace`}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </motion.div>
-
-                {/* Text A - Describes Image A (Top Right) */}
+              {/* New Layout - Side by side image and text pairs */}
+              <div className="space-y-12 py-8">
+                {/* First Row - Image A and Text A */}
                 <motion.div 
-                  className="absolute top-0 left-0 w-72 glass-card"
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-foreground mb-3">
-                      {currentData.subtitle}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {getImageADescription(currentData.id)}
-                    </p>
+                  {/* Image A */}
+                  <motion.div
+                    className="glass-card hover-tilt order-2 lg:order-1"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img
+                      src={currentData.image1}
+                      alt={`${currentData.title} - Workspace`}
+                      className="w-full h-64 lg:h-80 object-cover rounded-lg"
+                    />
+                  </motion.div>
+
+                  {/* Text A */}
+                  <div className="order-1 lg:order-2">
+                    <div className="glass-card p-8">
+                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                        {currentData.subtitle}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed text-lg">
+                        {getImageADescription(currentData.id)}
+                      </p>
+                    </div>
                   </div>
                 </motion.div>
 
-                {/* Image B - Bottom Left */}
-                <motion.div
-                  className="absolute bottom-0 left-0 w-80 h-60 glass-card hover-tilt"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img
-                    src={currentData.image2}
-                    alt={`${currentData.title} - Action`}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </motion.div>
-
-                {/* Text B - Describes Image B (Bottom Left) */}
+                {/* Second Row - Text B and Image B */}
                 <motion.div 
-                  className="absolute bottom-0 right-0 w-72 glass-card"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-foreground mb-3">
-                      In Action
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {getImageBDescription(currentData.id)}
-                    </p>
+                  {/* Text B */}
+                  <div>
+                    <div className="glass-card p-8">
+                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                        In Action
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed text-lg">
+                        {getImageBDescription(currentData.id)}
+                      </p>
+                    </div>
                   </div>
+
+                  {/* Image B */}
+                  <motion.div
+                    className="glass-card hover-tilt"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <img
+                      src={currentData.image2}
+                      alt={`${currentData.title} - Action`}
+                      className="w-full h-64 lg:h-80 object-cover rounded-lg"
+                    />
+                  </motion.div>
                 </motion.div>
 
-                {/* Center Content - Tags */}
+                {/* Center Description */}
                 <motion.div 
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center max-w-3xl mx-auto"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <div className="p-6">
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {currentData.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="glass rounded-pill px-3 py-1 text-xs font-medium text-foreground"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="glass-card p-8">
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {currentData.description}
+                    </p>
                   </div>
                 </motion.div>
               </div>
