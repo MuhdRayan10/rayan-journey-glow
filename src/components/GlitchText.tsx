@@ -6,6 +6,8 @@ interface GlitchTextProps {
   onHover?: boolean;
 }
 
+const INTERVAL = 2500; // 2.5 seconds
+
 const GLITCH_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
 const LETTER_SUBSTITUTES: Record<string, string[]> = {
   'T': ['7', '†', '₮'],
@@ -27,7 +29,7 @@ export const GlitchText = ({ text, className = '', onHover = true }: GlitchTextP
     if (isGlitching) return;
     
     setIsGlitching(true);
-    const duration = 150; // Total glitch duration
+    const duration = 1000; // Total glitch duration
     const intervals = 8; // Number of character swaps
     const intervalDuration = duration / intervals;
     
@@ -73,7 +75,7 @@ export const GlitchText = ({ text, className = '', onHover = true }: GlitchTextP
       if (!isGlitching) {
         glitchEffect();
       }
-    }, 3000); // Every 3 seconds
+    }, INTERVAL); // Every 3 seconds
 
     return () => clearInterval(autoGlitch);
   }, [glitchEffect, isGlitching]);
