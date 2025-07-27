@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Github, Linkedin, Twitter } from 'lucide-react';
 import { RgbButton } from './RgbButton';
+import { GlitchText } from './GlitchText';
 
 interface LandingPageProps {
   onStartJourney: () => void;
@@ -177,6 +178,18 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
           </motion.div>
         </motion.div>
 
+        {/* Subtext Under Name */}
+        {(stage === 'complete') && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-center"
+          >
+            <GlitchText text="TECH ENTHUSIAST" />
+          </motion.div>
+        )}
+
         {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -185,6 +198,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
             y: showButton ? 0 : 20 
           }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mt-20" // Added more spacing
         >
           <RgbButton onClick={onStartJourney}>
             Start your journey

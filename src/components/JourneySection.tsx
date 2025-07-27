@@ -87,51 +87,82 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
 
   const currentData = journeySlides[currentSlide];
 
+  // Helper functions for image descriptions
+  const getImageADescription = (id: string) => {
+    switch (id) {
+      case 'programming':
+        return 'My development workspace where ideas transform into reality. Clean code architecture and modern frameworks come together in this creative environment.';
+      case 'debating':
+        return 'The debate stage where arguments are crafted and delivered. This is where critical thinking meets public speaking in competitive tournaments.';
+      case 'chess':
+        return 'Strategic thinking in action. Every move calculated, every position analyzed. The chess board becomes a battlefield of minds.';
+      default:
+        return '';
+    }
+  };
+
+  const getImageBDescription = (id: string) => {
+    switch (id) {
+      case 'programming':
+        return 'Deep in the coding zone. Lines of TypeScript and React components taking shape, solving complex problems through elegant solutions.';
+      case 'debating':
+        return 'Recognition for dedication and skill. Tournament achievements that represent countless hours of practice and intellectual growth.';
+      case 'chess':
+        return 'Tournament competition at its finest. The intensity of competitive chess where strategy meets time pressure in pursuit of victory.';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/3 left-1/6 w-72 h-72 bg-purple/5 rounded-full blur-3xl opacity-40" />
-        <div className="absolute bottom-1/3 right-1/6 w-96 h-96 bg-purple/3 rounded-full blur-3xl opacity-30" />
+        <div className="absolute top-1/3 left-1/6 w-72 h-72 bg-white/5 rounded-full blur-3xl opacity-40" />
+        <div className="absolute bottom-1/3 right-1/6 w-96 h-96 bg-white/3 rounded-full blur-3xl opacity-30" />
       </div>
 
       {/* Header */}
       <div className="relative z-10 pt-8 pb-6">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-display-lg font-bold">Journey</h1>
-            <button
-              onClick={onBackToLanding}
-              className="glass rounded-full p-3 hover:glow-purple-subtle transition-all duration-300 group"
-            >
-              <Home size={20} className="text-muted-foreground group-hover:text-purple transition-colors" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Progress Indicator */}
-      <div className="relative z-10 pb-8">
-        <div className="container mx-auto px-6">
-          <div className="glass rounded-pill px-6 py-3 inline-flex items-center space-x-4">
-            {journeySlides.map((slide, index) => (
+            {/* Dynamic Activity Title */}
+            <h1 className="text-3xl md:text-5xl font-bold text-foreground">
+              {currentData.title}
+            </h1>
+            
+            {/* Top Right Navigation */}
+            <div className="flex items-center gap-4">
+              {/* Progress Indicator - moved to top right */}
+              <div className="glass rounded-pill px-4 py-2 flex items-center space-x-3">
+                {journeySlides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    onClick={() => goToSlide(index)}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded-full transition-all duration-300 ${
+                      index === currentSlide 
+                        ? 'bg-white/20 text-white' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <span className="text-xs font-mono">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-xs font-medium hidden md:inline">
+                      {slide.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              
+              {/* Home Button */}
               <button
-                key={slide.id}
-                onClick={() => goToSlide(index)}
-                className={`flex items-center space-x-2 px-3 py-1 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'bg-purple/20 text-purple' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
+                onClick={onBackToLanding}
+                className="glass rounded-full p-3 hover:glow-white-subtle transition-all duration-300 group"
               >
-                <span className="text-sm font-mono">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="text-sm font-medium hidden sm:inline">
-                  {slide.title}
-                </span>
+                <Home size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
               </button>
-            ))}
+            </div>
           </div>
         </div>
       </div>
@@ -148,59 +179,88 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="h-full"
             >
-              <div className="grid lg:grid-cols-2 gap-12 h-full items-center">
-                {/* Images Grid */}
-                <div className="grid grid-cols-2 gap-6">
-                  <motion.div
-                    className="glass-card hover-tilt"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={currentData.image1}
-                      alt={`${currentData.title} - Image 1`}
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
-                  </motion.div>
-                  <motion.div
-                    className="glass-card hover-tilt mt-8"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={currentData.image2}
-                      alt={`${currentData.title} - Image 2`}
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
-                  </motion.div>
-                </div>
+              {/* New Layout with repositioned images and text */}
+              <div className="relative h-full min-h-[70vh]">
+                {/* Image A - Top Right */}
+                <motion.div
+                  className="absolute top-0 right-0 w-80 h-60 glass-card hover-tilt"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img
+                    src={currentData.image1}
+                    alt={`${currentData.title} - Workspace`}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </motion.div>
 
-                {/* Content */}
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-display-lg font-bold mb-2">
-                      {currentData.title}
-                    </h2>
-                    <p className="text-xl text-purple font-medium mb-6">
+                {/* Text A - Describes Image A (Top Right) */}
+                <motion.div 
+                  className="absolute top-0 left-0 w-72 glass-card"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-3">
                       {currentData.subtitle}
-                    </p>
-                    <p className="text-body-lg text-muted-foreground leading-relaxed">
-                      {currentData.description}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {getImageADescription(currentData.id)}
                     </p>
                   </div>
+                </motion.div>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-3">
-                    {currentData.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="glass rounded-pill px-4 py-2 text-sm font-medium text-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                {/* Image B - Bottom Left */}
+                <motion.div
+                  className="absolute bottom-0 left-0 w-80 h-60 glass-card hover-tilt"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img
+                    src={currentData.image2}
+                    alt={`${currentData.title} - Action`}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </motion.div>
+
+                {/* Text B - Describes Image B (Bottom Left) */}
+                <motion.div 
+                  className="absolute bottom-0 right-0 w-72 glass-card"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-3">
+                      In Action
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {getImageBDescription(currentData.id)}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
+
+                {/* Center Content - Tags */}
+                <motion.div 
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-card"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="p-6">
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {currentData.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="glass rounded-pill px-3 py-1 text-xs font-medium text-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -214,16 +274,16 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className="glass rounded-full p-4 hover:glow-purple-subtle transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
+              className="glass rounded-full p-4 hover:glow-white-subtle transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
             >
-              <ChevronLeft size={24} className="text-muted-foreground group-hover:text-purple group-disabled:group-hover:text-muted-foreground transition-colors" />
+              <ChevronLeft size={24} className="text-muted-foreground group-hover:text-white group-disabled:group-hover:text-muted-foreground transition-colors" />
             </button>
             <button
               onClick={nextSlide}
               disabled={currentSlide === journeySlides.length - 1}
-              className="glass rounded-full p-4 hover:glow-purple-subtle transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
+              className="glass rounded-full p-4 hover:glow-white-subtle transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
             >
-              <ChevronRight size={24} className="text-muted-foreground group-hover:text-purple group-disabled:group-hover:text-muted-foreground transition-colors" />
+              <ChevronRight size={24} className="text-muted-foreground group-hover:text-white group-disabled:group-hover:text-muted-foreground transition-colors" />
             </button>
           </div>
         </div>
