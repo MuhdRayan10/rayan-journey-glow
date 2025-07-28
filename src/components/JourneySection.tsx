@@ -10,13 +10,14 @@ import debateAchievement from '@/assets/debate-achievement.jpg';
 import chessBoard from '@/assets/chess-board.jpg';
 import chessTournament from '@/assets/chess-tournament.jpg';
 
+import { StackedImageViewer } from './StackedImageViewer';
+
 interface JourneySlide {
   id: string;
   title: string;
   subtitle: string;
   description: string;
-  image1: string;
-  image2: string;
+  images: string[];
   tags: string[];
 }
 
@@ -26,8 +27,7 @@ const journeySlides: JourneySlide[] = [
     title: 'Programming',
     subtitle: 'Building Digital Solutions',
     description: 'From web applications to complex algorithms, I leverage modern frameworks like React, TypeScript, and Node.js to create innovative solutions. My focus lies in clean, maintainable code and user-centered design.',
-    image1: programmingWorkspace,
-    image2: programmingCoding,
+    images: [programmingWorkspace, programmingCoding, programmingWorkspace, programmingCoding],
     tags: ['React', 'TypeScript', 'Node.js', 'Python', 'Full Stack']
   },
   {
@@ -35,8 +35,7 @@ const journeySlides: JourneySlide[] = [
     title: 'Debating',
     subtitle: 'Mastering Persuasive Communication',
     description: 'Competitive debating has shaped my critical thinking and public speaking abilities. Through regional tournaments and leadership roles, I\'ve learned to construct compelling arguments and engage diverse audiences effectively.',
-    image1: debateStage,
-    image2: debateAchievement,
+    images: [debateStage, debateAchievement, debateStage, debateAchievement],
     tags: ['Public Speaking', 'Critical Thinking', 'Leadership', 'Tournaments', 'Analysis']
   },
   {
@@ -44,8 +43,7 @@ const journeySlides: JourneySlide[] = [
     title: 'Chess',
     subtitle: 'Strategic Thinking & Pattern Recognition',
     description: 'Chess has been my companion in developing strategic thinking and pattern recognition skills. With a focus on endgame theory and tactical combinations, I enjoy the mental challenges and the endless depth of the game.',
-    image1: chessBoard,
-    image2: chessTournament,
+    images: [chessBoard, chessTournament, chessBoard, chessTournament],
     tags: ['Strategy', 'Pattern Recognition', 'Analysis', 'Endgames', 'Tournaments']
   }
 ];
@@ -194,83 +192,59 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="h-full"
             >
-              {/* New Layout - Side by side image and text pairs */}
+              {/* New Layout - Stacked Images and Content */}
               <div className="space-y-12 py-8">
-                {/* First Row - Image A and Text A */}
+                {/* Hero Section with Stacked Images */}
                 <motion.div 
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {/* Image A */}
+                  {/* Stacked Image Viewer */}
                   <motion.div
-                    className="glass-card hover-tilt order-2 lg:order-1"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
+                    className="order-2 lg:order-1"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4, duration: 0.8 }}
                   >
-                    <img
-                      src={currentData.image1}
-                      alt={`${currentData.title} - Workspace`}
-                      className="w-full h-64 lg:h-80 object-cover rounded-lg"
+                    <StackedImageViewer
+                      images={currentData.images}
+                      alt={currentData.title}
+                      className="glass-card p-4"
                     />
                   </motion.div>
 
-                  {/* Text A */}
-                  <div className="order-1 lg:order-2">
+                  {/* Content */}
+                  <motion.div 
+                    className="order-1 lg:order-2 space-y-6"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6, duration: 0.8 }}
+                  >
                     <div className="glass-card p-8">
-                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                      <h3 className="text-3xl font-bold text-foreground mb-4">
                         {currentData.subtitle}
                       </h3>
-                      <p className="text-muted-foreground leading-relaxed text-lg">
+                      <p className="text-muted-foreground leading-relaxed text-lg mb-6">
                         {getImageADescription(currentData.id)}
                       </p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Second Row - Text B and Image B */}
-                <motion.div 
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  {/* Text B */}
-                  <div>
-                    <div className="glass-card p-8">
-                      <h3 className="text-2xl font-bold text-foreground mb-4">
-                        In Action
-                      </h3>
                       <p className="text-muted-foreground leading-relaxed text-lg">
                         {getImageBDescription(currentData.id)}
                       </p>
                     </div>
-                  </div>
-
-                  {/* Image B */}
-                  <motion.div
-                    className="glass-card hover-tilt"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={currentData.image2}
-                      alt={`${currentData.title} - Action`}
-                      className="w-full h-64 lg:h-80 object-cover rounded-lg"
-                    />
                   </motion.div>
                 </motion.div>
 
                 {/* Center Description */}
                 <motion.div 
-                  className="text-center max-w-3xl mx-auto"
+                  className="text-center max-w-4xl mx-auto"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
+                  transition={{ delay: 0.8 }}
                 >
                   <div className="glass-card p-8">
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-xl text-muted-foreground leading-relaxed">
                       {currentData.description}
                     </p>
                   </div>

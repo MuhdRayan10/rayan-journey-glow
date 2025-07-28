@@ -116,6 +116,11 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
     box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
   }
 
+  /* Utility Classes */
+  .rounded-pill {
+    border-radius: var(--r-pill);
+  }
+
   /* RGB Gradient Border Animation */
   .rgb-border {
     position: relative;
