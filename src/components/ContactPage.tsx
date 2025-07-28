@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Phone, User } from 'lucide-react';
-import profilePhoto from '@/assets/profile-photo.jpg';
+import profilePhoto from '@/assets/profile-photo.png';
 
 export const ContactPage = () => {
   const contactInfo = [
@@ -11,14 +11,14 @@ export const ContactPage = () => {
     },
     {
       label: 'Phone',
-      value: '+1 (555) 123-4567',
+      value: '+974 70030840',
       icon: Phone,
     },
     {
       label: 'Email',
-      value: 'rayan@example.com',
+      value: 'muhammedrayansavad1',
       icon: Mail,
-      link: 'mailto:rayan@example.com',
+      link: 'mailto:muhammedrayansavad1@gmail.com',
     },
     {
       label: 'GitHub',

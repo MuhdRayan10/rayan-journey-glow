@@ -111,6 +111,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
       </div>
 
       {/* Navigation */}
+      
       <nav className="fixed top-6 right-6 z-50">
         <div className="glass rounded-pill px-6 py-3">
           <div className="flex gap-6 text-sm font-medium">
@@ -152,7 +153,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
           )}
 
           {/* Glitch Subtitle - positioned between name and blob */}
-          {(stage === 'typing2' || stage === 'complete') && (
+          {(stage === 'pause' || stage === 'typing2' || stage === 'complete') && (
             <motion.div
               initial={{ opacity: 0}}
               animate={{ opacity: 1, y: -40}}
