@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { LandingPage } from '@/components/LandingPage';
 import { JourneySection } from '@/components/JourneySection';
 import { ContactPage } from '@/components/ContactPage';
-import { Navigation } from '@/components/Navigation';
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState<'landing' | 'journey' | 'contact'>('landing');
@@ -21,18 +20,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation currentSection={currentSection} onNavigate={navigateToSection} />
-      
       {currentSection === 'landing' && (
-        <LandingPage onStartJourney={startJourney} />
+        <LandingPage onStartJourney={startJourney} onNavigate={navigateToSection} />
       )}
       
       {currentSection === 'journey' && (
-        <JourneySection onBackToLanding={backToLanding} />
+        <JourneySection onBackToLanding={backToLanding} onNavigate={navigateToSection} />
       )}
       
       {currentSection === 'contact' && (
-        <ContactPage />
+        <ContactPage onNavigate={navigateToSection} />
       )}
     </div>
   );

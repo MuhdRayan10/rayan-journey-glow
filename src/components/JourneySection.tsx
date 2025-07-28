@@ -50,9 +50,10 @@ const journeySlides: JourneySlide[] = [
 
 interface JourneySectionProps {
   onBackToLanding: () => void;
+  onNavigate: (section: 'landing' | 'journey' | 'contact') => void;
 }
 
-export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
+export const JourneySection = ({ onBackToLanding, onNavigate }: JourneySectionProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -146,6 +147,16 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
             
             {/* Right side - Navigation */}
             <div className="flex items-center gap-4">
+              {/* Top Navigation Bar */}
+              <nav className="glass rounded-pill px-6 py-3">
+                <div className="flex gap-6 text-sm font-medium">
+                  <button onClick={() => onNavigate('landing')} className="text-muted-foreground hover:text-white transition-colors">Home</button>
+                  <button onClick={() => onNavigate('journey')} className="text-foreground hover:text-white transition-colors">Journey</button>
+                  <button className="text-muted-foreground hover:text-white transition-colors">Projects</button>
+                  <button onClick={() => onNavigate('contact')} className="text-muted-foreground hover:text-white transition-colors">Contact</button>
+                </div>
+              </nav>
+              
               {/* Progress Indicator */}
               <div className="glass rounded-pill px-4 py-2 flex items-center space-x-3">
                 {journeySlides.map((slide, index) => (
@@ -167,14 +178,6 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
                   </button>
                 ))}
               </div>
-              
-              {/* Home Button */}
-              <button
-                onClick={onBackToLanding}
-                className="glass rounded-full p-3 hover:glow-white-subtle transition-all duration-300 group"
-              >
-                <Home size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
-              </button>
             </div>
           </div>
         </div>
@@ -194,41 +197,77 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
             >
               {/* New Layout - Stacked Images and Content */}
               <div className="space-y-12 py-8">
-                {/* Hero Section with Stacked Images */}
+                {/* First Section - Top Right Image Stack */}
                 <motion.div 
                   className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {/* Stacked Image Viewer */}
-                  <motion.div
-                    className="order-2 lg:order-1"
+                  {/* Text Description A */}
+                  <motion.div 
+                    className="space-y-6"
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
                   >
-                    <StackedImageViewer
-                      images={currentData.images}
-                      alt={currentData.title}
-                      className="glass-card p-4"
-                    />
+                    <div className="glass-card p-8">
+                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                        {currentData.subtitle}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed text-lg">
+                        {getImageADescription(currentData.id)}
+                      </p>
+                    </div>
                   </motion.div>
 
-                  {/* Content */}
-                  <motion.div 
-                    className="order-1 lg:order-2 space-y-6"
+                  {/* Image Stack A - Top Right */}
+                  <motion.div
+                    className="flex justify-end"
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6, duration: 0.8 }}
                   >
+                    <StackedImageViewer
+                      images={[currentData.images[0], currentData.images[1]]}
+                      alt={`${currentData.title} workspace`}
+                      className="glass-card p-4 w-full max-w-md"
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* Second Section - Bottom Left Image Stack */}
+                <motion.div 
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  {/* Image Stack B - Bottom Left */}
+                  <motion.div
+                    className="order-2 lg:order-1"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1.0, duration: 0.8 }}
+                  >
+                    <StackedImageViewer
+                      images={[currentData.images[2], currentData.images[3]]}
+                      alt={`${currentData.title} achievements`}
+                      className="glass-card p-4 w-full max-w-md"
+                    />
+                  </motion.div>
+
+                  {/* Text Description B */}
+                  <motion.div 
+                    className="order-1 lg:order-2 space-y-6"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1.2, duration: 0.8 }}
+                  >
                     <div className="glass-card p-8">
-                      <h3 className="text-3xl font-bold text-foreground mb-4">
-                        {currentData.subtitle}
+                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                        Key Achievements
                       </h3>
-                      <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                        {getImageADescription(currentData.id)}
-                      </p>
                       <p className="text-muted-foreground leading-relaxed text-lg">
                         {getImageBDescription(currentData.id)}
                       </p>

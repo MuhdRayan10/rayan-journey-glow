@@ -6,9 +6,10 @@ import { GlitchText } from './GlitchText';
 
 interface LandingPageProps {
   onStartJourney: () => void;
+  onNavigate: (section: 'landing' | 'journey' | 'contact') => void;
 }
 
-export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
+export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) => {
   const [text, setText] = useState('');
   const [stage, setStage] = useState<'empty' | 'typing1' | 'pause' | 'typing2' | 'complete'>('empty');
   const [showButton, setShowButton] = useState(false);
@@ -115,10 +116,10 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
       <nav className="fixed top-6 right-6 z-50">
         <div className="glass rounded-pill px-6 py-3">
           <div className="flex gap-6 text-sm font-medium">
-            <a href="#" className="text-foreground hover:text-white transition-colors">Home</a>
-            <a href="#journey" className="text-muted-foreground hover:text-white transition-colors">Journey</a>
-            <a href="#projects" className="text-muted-foreground hover:text-white transition-colors">Projects</a>
-            <a href="#contact" className="text-muted-foreground hover:text-white transition-colors">Contact</a>
+            <button onClick={() => onNavigate('landing')} className="text-foreground hover:text-white transition-colors">Home</button>
+            <button onClick={() => onNavigate('journey')} className="text-muted-foreground hover:text-white transition-colors">Journey</button>
+            <button className="text-muted-foreground hover:text-white transition-colors">Projects</button>
+            <button onClick={() => onNavigate('contact')} className="text-muted-foreground hover:text-white transition-colors">Contact</button>
           </div>
         </div>
       </nav>
