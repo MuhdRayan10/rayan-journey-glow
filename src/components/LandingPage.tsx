@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Github, Linkedin, Twitter } from 'lucide-react';
+import { Terminal, Github, Linkedin, Twitter, X } from 'lucide-react';
 import { RgbButton } from './RgbButton';
 import { GlitchText } from './GlitchText';
 
@@ -154,8 +154,8 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
           {/* Glitch Subtitle - positioned between name and blob */}
           {(stage === 'typing2' || stage === 'complete') && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1}}
+              initial={{ opacity: 0}}
+              animate={{ opacity: 1, y: -40}}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-center mb-6"
             >
@@ -196,7 +196,7 @@ export const LandingPage = ({ onStartJourney }: LandingPageProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ 
             opacity: showButton ? 1 : 0, 
-            y: showButton ? 0 : 20 
+            y: showButton ? 30 : 20 
           }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mt-20" // Added more spacing
