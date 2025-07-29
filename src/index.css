@@ -88,6 +88,11 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
   html {
     scroll-behavior: smooth;
   }
+
+  /* Hide the default system curosr */
+  * {
+    cursor: none !important;
+  }
 }
 
 @layer components {

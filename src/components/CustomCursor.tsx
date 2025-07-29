@@ -108,8 +108,8 @@ export const CustomCursor = () => {
     <motion.div
       className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
       style={{
-        x: cursorPosition.x - 16,
-        y: cursorPosition.y - 16,
+        x: cursorPosition.x - 12,
+        y: cursorPosition.y - 12,
       }}
       animate={{
         scale: isHoveringImage ? 0.5 : 1,
@@ -123,7 +123,7 @@ export const CustomCursor = () => {
     >
       {/* Outer ring with glow */}
       <motion.div
-        className="relative w-8 h-8"
+        className="relative w-6 h-6"
         animate={{
           scale: isHoveringButton ? 1.5 : 1,
         }}
