@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LandingPage } from '@/components/LandingPage';
 import { JourneySection } from '@/components/JourneySection';
 import { ContactPage } from '@/components/ContactPage';
+import { CustomCursor } from '@/components/CustomCursor';
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState<'landing' | 'journey' | 'contact'>('landing');
@@ -19,13 +20,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background cursor-none">
+      <CustomCursor />
+      
       {currentSection === 'landing' && (
         <LandingPage onStartJourney={startJourney} onNavigate={navigateToSection} />
       )}
       
       {currentSection === 'journey' && (
-        <JourneySection onBackToLanding={backToLanding} onNavigate={navigateToSection} />
+        <JourneySection onBackToLanding={backToLanding} />
       )}
       
       {currentSection === 'contact' && (
