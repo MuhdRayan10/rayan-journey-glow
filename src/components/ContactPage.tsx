@@ -116,7 +116,7 @@ export const ContactPage = ({ onNavigate }: ContactPageProps) => {
                     href={contactInfo.find(item => item.label === 'Email')?.link}
                     className="text-muted-foreground hover:text-white transition-colors"
                   >
-                    {contactInfo.find(item => item.label === 'Email')?.value}@gmail.com
+                    {contactInfo.find(item => item.label === 'Email')?.value}
                   </a>
                 </div>
               </div>
