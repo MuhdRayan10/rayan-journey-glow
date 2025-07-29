@@ -30,7 +30,7 @@ export const ImageStack = ({ images, alt, className = '' }: ImageStackProps) => 
       role="button"
       aria-label={`Image stack: ${alt}. Click to cycle through ${images.length} images`}
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg glass-card">
+      <div className="relative aspect-[4/3] w-full max-h-48 lg:max-h-64 overflow-hidden rounded-lg glass-card">
         <AnimatePresence mode="wait">
           {images.map((image, index) => {
             const isActive = index === currentIndex;

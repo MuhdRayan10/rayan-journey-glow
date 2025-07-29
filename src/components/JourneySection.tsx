@@ -3,23 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { ImageStack } from '@/components/ImageStack';
 
-// Import all images for stacks
-import programmingWorkspace from '@/assets/programming-workspace.jpg';
-import programmingCoding from '@/assets/programming-coding.jpg';
-import programmingMonitor from '@/assets/programming-monitor.jpg';
-import programmingCode from '@/assets/programming-code.jpg';
-import programmingMacbook from '@/assets/programming-macbook.jpg';
+// Import all images for stacks (webp format for performance)
+import programmingWorkspace from '@/assets/programming-workspace.webp';
+import programmingCoding from '@/assets/programming-coding.webp';
+import programmingMonitor from '@/assets/programming-monitor.webp';
+import programmingCode from '@/assets/programming-code.webp';
+import programmingMacbook from '@/assets/programming-macbook.webp';
 
-import debateStage from '@/assets/debate-stage.jpg';
-import debateAchievement from '@/assets/debate-achievement.jpg';
-import debateDisplay from '@/assets/debate-display.jpg';
-import debateMeeting from '@/assets/debate-meeting.jpg';
-import debateStylus from '@/assets/debate-stylus.jpg';
+import debateStage from '@/assets/debate-stage.webp';
+import debateAchievement from '@/assets/debate-achievement.webp';
+import debateDisplay from '@/assets/debate-display.webp';
+import debateMeeting from '@/assets/debate-meeting.webp';
+import debateStylus from '@/assets/debate-stylus.webp';
 
-import chessBoard from '@/assets/chess-board.jpg';
-import chessTournament from '@/assets/chess-tournament.jpg';
-import chessLaptop from '@/assets/chess-laptop.jpg';
-import chessGlassTable from '@/assets/chess-glass-table.jpg';
+import chessBoard from '@/assets/chess-board.webp';
+import chessTournament from '@/assets/chess-tournament.webp';
+import chessLaptop from '@/assets/chess-laptop.webp';
+import chessGlassTable from '@/assets/chess-glass-table.webp';
 
 interface JourneySlide {
   id: string;
