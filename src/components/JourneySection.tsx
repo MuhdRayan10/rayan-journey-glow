@@ -1,22 +1,33 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
+import { ImageStack } from '@/components/ImageStack';
 
-// Import generated images
+// Import all images for stacks
 import programmingWorkspace from '@/assets/programming-workspace.jpg';
 import programmingCoding from '@/assets/programming-coding.jpg';
+import programmingMonitor from '@/assets/programming-monitor.jpg';
+import programmingCode from '@/assets/programming-code.jpg';
+import programmingMacbook from '@/assets/programming-macbook.jpg';
+
 import debateStage from '@/assets/debate-stage.jpg';
 import debateAchievement from '@/assets/debate-achievement.jpg';
+import debateDisplay from '@/assets/debate-display.jpg';
+import debateMeeting from '@/assets/debate-meeting.jpg';
+import debateStylus from '@/assets/debate-stylus.jpg';
+
 import chessBoard from '@/assets/chess-board.jpg';
 import chessTournament from '@/assets/chess-tournament.jpg';
+import chessLaptop from '@/assets/chess-laptop.jpg';
+import chessGlassTable from '@/assets/chess-glass-table.jpg';
 
 interface JourneySlide {
   id: string;
   title: string;
   subtitle: string;
   description: string;
-  image1: string;
-  image2: string;
+  imageStack1: string[];
+  imageStack2: string[];
   tags: string[];
 }
 
@@ -26,8 +37,8 @@ const journeySlides: JourneySlide[] = [
     title: 'Programming',
     subtitle: 'Building Digital Solutions',
     description: 'From web applications to complex algorithms, I leverage modern frameworks like React, TypeScript, and Node.js to create innovative solutions. My focus lies in clean, maintainable code and user-centered design.',
-    image1: programmingWorkspace,
-    image2: programmingCoding,
+    imageStack1: [programmingWorkspace, programmingMonitor, programmingCode, programmingMacbook],
+    imageStack2: [programmingCoding, programmingCode, programmingWorkspace, programmingMonitor],
     tags: ['React', 'TypeScript', 'Node.js', 'Python', 'Full Stack']
   },
   {
@@ -35,8 +46,8 @@ const journeySlides: JourneySlide[] = [
     title: 'Debating',
     subtitle: 'Mastering Persuasive Communication',
     description: 'Competitive debating has shaped my critical thinking and public speaking abilities. Through regional tournaments and leadership roles, I\'ve learned to construct compelling arguments and engage diverse audiences effectively.',
-    image1: debateStage,
-    image2: debateAchievement,
+    imageStack1: [debateStage, debateDisplay, debateMeeting, debateStylus],
+    imageStack2: [debateAchievement, debateDisplay, debateStage, debateMeeting],
     tags: ['Public Speaking', 'Critical Thinking', 'Leadership', 'Tournaments', 'Analysis']
   },
   {
@@ -44,8 +55,8 @@ const journeySlides: JourneySlide[] = [
     title: 'Chess',
     subtitle: 'Strategic Thinking & Pattern Recognition',
     description: 'Chess has been my companion in developing strategic thinking and pattern recognition skills. With a focus on endgame theory and tactical combinations, I enjoy the mental challenges and the endless depth of the game.',
-    image1: chessBoard,
-    image2: chessTournament,
+    imageStack1: [chessBoard, chessLaptop, chessGlassTable, chessTournament],
+    imageStack2: [chessTournament, chessBoard, chessLaptop, chessGlassTable],
     tags: ['Strategy', 'Pattern Recognition', 'Analysis', 'Endgames', 'Tournaments']
   }
 ];
@@ -203,16 +214,16 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {/* Image A */}
+                  {/* Image Stack A */}
                   <motion.div
-                    className="glass-card hover-tilt order-2 lg:order-1"
+                    className="order-2 lg:order-1"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img
-                      src={currentData.image1}
-                      alt={`${currentData.title} - Workspace`}
-                      className="w-full h-64 lg:h-80 object-cover rounded-lg"
+                    <ImageStack
+                      images={currentData.imageStack1}
+                      alt={`${currentData.title} workspace and environment`}
+                      className="w-full"
                     />
                   </motion.div>
 
@@ -248,16 +259,15 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
                     </div>
                   </div>
 
-                  {/* Image B */}
+                  {/* Image Stack B */}
                   <motion.div
-                    className="glass-card hover-tilt"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img
-                      src={currentData.image2}
-                      alt={`${currentData.title} - Action`}
-                      className="w-full h-64 lg:h-80 object-cover rounded-lg"
+                    <ImageStack
+                      images={currentData.imageStack2}
+                      alt={`${currentData.title} in action and practice`}
+                      className="w-full"
                     />
                   </motion.div>
                 </motion.div>
