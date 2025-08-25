@@ -1,24 +1,23 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Github, Linkedin, Twitter, X } from 'lucide-react';
-import { RgbButton } from './RgbButton';
 import { GlitchText } from './GlitchText';
 
 interface LandingPageProps {
   onStartJourney: () => void;
   onNavigate: (section: 'landing' | 'journey' | 'contact') => void;
+  currentSection?: string;
 }
 
-export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) => {
+export const LandingPage = ({ onStartJourney, onNavigate, currentSection = 'landing' }: LandingPageProps) => {
   const [text, setText] = useState('');
   const [stage, setStage] = useState<'empty' | 'typing1' | 'pause' | 'typing2' | 'complete'>('empty');
-  const [showButton, setShowButton] = useState(false);
 
   const text1 = "Hi, my name is Rayan.";
   const text2 = "Welcome to my world!";
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setStage('typing1'), 1000);
+    const timer1 = setTimeout(() => setStage('typing1'), 500);
     return () => clearTimeout(timer1);
   }, []);
 
@@ -30,16 +29,16 @@ export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) =>
         i++;
         if (i > text1.length) {
           clearInterval(typing);
-          setTimeout(() => setStage('pause'), 500);
+          setTimeout(() => setStage('pause'), 300);
         }
-      }, 100);
+      }, 80);
       return () => clearInterval(typing);
     }
   }, [stage]);
 
   useEffect(() => {
     if (stage === 'pause') {
-      setTimeout(() => setStage('typing2'), 1000);
+      setTimeout(() => setStage('typing2'), 600);
     }
   }, [stage]);
 
@@ -53,9 +52,8 @@ export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) =>
         if (i > text2.length) {
           clearInterval(typing);
           setStage('complete');
-          setTimeout(() => setShowButton(true), 800);
         }
-      }, 120);
+      }, 100);
       return () => clearInterval(typing);
     }
   }, [stage]);
@@ -109,17 +107,54 @@ export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) =>
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl opacity-20 animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/3 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/6 w-32 h-32 bg-white/4 rounded-full blur-2xl opacity-25 animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-1/6 left-1/2 w-48 h-48 bg-white/2 rounded-full blur-3xl opacity-35 animate-pulse" style={{ animationDelay: '0.5s' }} />
       </div>
 
       {/* Navigation */}
-      
       <nav className="fixed top-6 right-6 z-50">
         <div className="glass rounded-pill px-6 py-3">
           <div className="flex gap-6 text-sm font-medium">
-            <button onClick={() => onNavigate('landing')} className="text-foreground hover:text-white transition-colors">Home</button>
-            <button onClick={() => onNavigate('journey')} className="text-muted-foreground hover:text-white transition-colors">Journey</button>
+            <button 
+              onClick={() => {
+                const element = document.getElementById('landing');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className={`transition-colors ${
+                currentSection === 'landing' 
+                  ? 'text-white' 
+                  : 'text-muted-foreground hover:text-white'
+              }`}
+            >
+              Home
+            </button>
+            <button 
+              onClick={() => {
+                const element = document.getElementById('journey');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className={`transition-colors ${
+                currentSection === 'journey' 
+                  ? 'text-white' 
+                  : 'text-muted-foreground hover:text-white'
+              }`}
+            >
+              Journey
+            </button>
             <button className="text-muted-foreground hover:text-white transition-colors">Projects</button>
-            <button onClick={() => onNavigate('contact')} className="text-muted-foreground hover:text-white transition-colors">Contact</button>
+            <button 
+              onClick={() => {
+                const element = document.getElementById('contact');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className={`transition-colors ${
+                currentSection === 'contact' 
+                  ? 'text-white' 
+                  : 'text-muted-foreground hover:text-white'
+              }`}
+            >
+              Contact
+            </button>
           </div>
         </div>
       </nav>
@@ -147,7 +182,7 @@ export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) =>
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: -45 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="text-display-lg font-bold text-white text-center mb-4"
+              className="text-display-lg font-bold text-center mb-4 sweep"
             >
               Muhammed Rayan Savad
             </motion.h1>
@@ -193,37 +228,55 @@ export const LandingPage = ({ onStartJourney, onNavigate }: LandingPageProps) =>
           </motion.div>
         </motion.div>
 
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ 
-            opacity: showButton ? 1 : 0, 
-            y: showButton ? 30 : 20 
-          }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mt-20" // Added more spacing
-        >
-          <RgbButton onClick={onStartJourney}>
-            Start your journey
-          </RgbButton>
-        </motion.div>
+        {/* Removed CTA Button - users can now simply scroll down */}
       </div>
 
-      {/* Scroll Indicator */}
-      {showButton && (
+      {/* Enhanced Scroll Indicator */}
+      {stage === 'complete' && (
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
         >
-          <div className="glass rounded-full p-2">
+          <motion.p 
+            className="text-xs text-muted-foreground font-medium tracking-wider uppercase"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Scroll Down
+          </motion.p>
+          <div className="glass rounded-full p-4 cursor-pointer hover:glow-white-subtle transition-all duration-300 chalk-texture"
+               onClick={onStartJourney}>
             <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-6 bg-white rounded-full opacity-60"
-            />
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative"
+            >
+              <div className="chalk-arrow">
+                <div className="chalk-arrow-tip"></div>
+              </div>
+            </motion.div>
           </div>
+          <motion.div
+            className="flex gap-1 mt-1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            transition={{ delay: 1.2, duration: 0.4 }}
+          >
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-1 h-1 bg-white/60 rounded-full"
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity,
+                  delay: i * 0.2 
+                }}
+              />
+            ))}
+          </motion.div>
         </motion.div>
       )}
     </div>

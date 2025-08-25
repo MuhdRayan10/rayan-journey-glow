@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { ImageStack } from '@/components/ImageStack';
+import journeyData from '@/data/journey-data.json';
 
 // Import all images for stacks (webp format for performance)
 import programmingWorkspace from '@/assets/programming-workspace.webp';
@@ -21,45 +22,50 @@ import chessTournament from '@/assets/chess-tournament.webp';
 import chessLaptop from '@/assets/chess-laptop.webp';
 import chessGlassTable from '@/assets/chess-glass-table.webp';
 
+// Image mapping
+const imageMap: Record<string, string> = {
+  'programming-workspace.webp': programmingWorkspace,
+  'programming-coding.webp': programmingCoding,
+  'programming-monitor.webp': programmingMonitor,
+  'programming-code.webp': programmingCode,
+  'programming-macbook.webp': programmingMacbook,
+  'debate-stage.webp': debateStage,
+  'debate-achievement.webp': debateAchievement,
+  'debate-display.webp': debateDisplay,
+  'debate-meeting.webp': debateMeeting,
+  'debate-stylus.webp': debateStylus,
+  'chess-board.webp': chessBoard,
+  'chess-tournament.webp': chessTournament,
+  'chess-laptop.webp': chessLaptop,
+  'chess-glass-table.webp': chessGlassTable,
+};
+
+interface JourneyRow {
+  title: string;
+  description: string;
+  photostack: string[];
+}
+
+interface JourneySection {
+  section: string;
+  tags: string[];
+  rows: JourneyRow[];
+}
+
 interface JourneySlide {
   id: string;
   title: string;
-  subtitle: string;
-  description: string;
-  imageStack1: string[];
-  imageStack2: string[];
   tags: string[];
+  rows: JourneyRow[];
 }
 
-const journeySlides: JourneySlide[] = [
-  {
-    id: 'programming',
-    title: 'Programming',
-    subtitle: 'Building Digital Solutions',
-    description: 'From web applications to complex algorithms, I leverage modern frameworks like React, TypeScript, and Node.js to create innovative solutions. My focus lies in clean, maintainable code and user-centered design.',
-    imageStack1: [programmingWorkspace, programmingMonitor, programmingCode, programmingMacbook],
-    imageStack2: [programmingCoding, programmingCode, programmingWorkspace, programmingMonitor],
-    tags: ['React', 'TypeScript', 'Node.js', 'Python', 'Full Stack']
-  },
-  {
-    id: 'debating',
-    title: 'Debating',
-    subtitle: 'Mastering Persuasive Communication',
-    description: 'Competitive debating has shaped my critical thinking and public speaking abilities. Through regional tournaments and leadership roles, I\'ve learned to construct compelling arguments and engage diverse audiences effectively.',
-    imageStack1: [debateStage, debateDisplay, debateMeeting, debateStylus],
-    imageStack2: [debateAchievement, debateDisplay, debateStage, debateMeeting],
-    tags: ['Public Speaking', 'Critical Thinking', 'Leadership', 'Tournaments', 'Analysis']
-  },
-  {
-    id: 'chess',
-    title: 'Chess',
-    subtitle: 'Strategic Thinking & Pattern Recognition',
-    description: 'Chess has been my companion in developing strategic thinking and pattern recognition skills. With a focus on endgame theory and tactical combinations, I enjoy the mental challenges and the endless depth of the game.',
-    imageStack1: [chessBoard, chessLaptop, chessGlassTable, chessTournament],
-    imageStack2: [chessTournament, chessBoard, chessLaptop, chessGlassTable],
-    tags: ['Strategy', 'Pattern Recognition', 'Analysis', 'Endgames', 'Tournaments']
-  }
-];
+// Convert JSON data to the format expected by the component
+const journeySlides: JourneySlide[] = journeyData.sections.map((section: JourneySection, index: number) => ({
+  id: section.section.toLowerCase(),
+  title: section.section,
+  tags: section.tags,
+  rows: section.rows
+}));
 
 interface JourneySectionProps {
   onBackToLanding: () => void;
@@ -88,41 +94,20 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
       } else if (event.key === 'ArrowLeft' && currentSlide > 0) {
         prevSlide();
       } else if (event.key === 'Escape') {
-        onBackToLanding();
+        const element = document.getElementById('landing');
+        element?.scrollIntoView({ behavior: 'smooth' });
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, nextSlide, prevSlide, onBackToLanding]);
+  }, [currentSlide]);
 
   const currentData = journeySlides[currentSlide];
 
-  // Helper functions for image descriptions
-  const getImageADescription = (id: string) => {
-    switch (id) {
-      case 'programming':
-        return 'My development workspace where ideas transform into reality. Clean code architecture and modern frameworks come together in this creative environment.';
-      case 'debating':
-        return 'The debate stage where arguments are crafted and delivered. This is where critical thinking meets public speaking in competitive tournaments.';
-      case 'chess':
-        return 'Strategic thinking in action. Every move calculated, every position analyzed. The chess board becomes a battlefield of minds.';
-      default:
-        return '';
-    }
-  };
-
-  const getImageBDescription = (id: string) => {
-    switch (id) {
-      case 'programming':
-        return 'Deep in the coding zone. Lines of TypeScript and React components taking shape, solving complex problems through elegant solutions.';
-      case 'debating':
-        return 'Recognition for dedication and skill. Tournament achievements that represent countless hours of practice and intellectual growth.';
-      case 'chess':
-        return 'Tournament competition at its finest. The intensity of competitive chess where strategy meets time pressure in pursuit of victory.';
-      default:
-        return '';
-    }
+  // Helper function to resolve image paths
+  const resolveImagePaths = (photostack: string[]) => {
+    return photostack.map(imageName => imageMap[imageName]).filter(Boolean);
   };
 
   return (
@@ -183,7 +168,10 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
               
               {/* Home Button */}
               <button
-                onClick={onBackToLanding}
+                onClick={() => {
+                  const element = document.getElementById('landing');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="glass rounded-full p-3 hover:glow-white-subtle transition-all duration-300 group"
               >
                 <Home size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
@@ -205,86 +193,71 @@ export const JourneySection = ({ onBackToLanding }: JourneySectionProps) => {
               transition={{ duration: 0.6, ease: "easeInOut" }}
               className="h-full"
             >
-              {/* New Layout - Side by side image and text pairs */}
+              {/* Dynamic Rows */}
               <div className="space-y-12 py-8">
-                {/* First Row - Image A and Text A */}
-                <motion.div 
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {/* Image Stack A */}
-                  <motion.div
-                    className="order-2 lg:order-1"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ImageStack
-                      images={currentData.imageStack1}
-                      alt={`${currentData.title} workspace and environment`}
-                      className="w-full"
-                    />
-                  </motion.div>
+                {currentData.rows.map((row, index) => {
+                  const isEven = index % 2 === 0;
+                  const resolvedImages = resolveImagePaths(row.photostack);
+                  
+                  return (
+                    <motion.div 
+                      key={index}
+                      className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + (index * 0.2) }}
+                    >
+                      {/* Conditionally render image and text based on row index */}
+                      {isEven ? (
+                        <>
+                          {/* Image on left for even rows */}
+                          <div className="order-2 lg:order-1 transform-gpu">
+                            <ImageStack
+                              images={resolvedImages}
+                              alt={`${currentData.title} - ${row.title}`}
+                              className="w-full"
+                            />
+                          </div>
 
-                  {/* Text A */}
-                  <div className="order-1 lg:order-2">
-                    <div className="glass-card p-8">
-                      <h3 className="text-2xl font-bold text-foreground mb-4">
-                        {currentData.subtitle}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed text-lg">
-                        {getImageADescription(currentData.id)}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
+                          {/* Text on right for even rows */}
+                          <div className="order-1 lg:order-2">
+                            <div className="glass-card p-8">
+                              <h3 className="text-2xl font-bold text-foreground mb-4">
+                                {row.title}
+                              </h3>
+                              <p className="text-muted-foreground leading-relaxed text-lg">
+                                {row.description}
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {/* Text on left for odd rows */}
+                          <div className="order-1 lg:order-1">
+                            <div className="glass-card p-8">
+                              <h3 className="text-2xl font-bold text-foreground mb-4">
+                                {row.title}
+                              </h3>
+                              <p className="text-muted-foreground leading-relaxed text-lg">
+                                {row.description}
+                              </p>
+                            </div>
+                          </div>
 
-                {/* Second Row - Text B and Image B */}
-                <motion.div 
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  {/* Text B */}
-                  <div>
-                    <div className="glass-card p-8">
-                      <h3 className="text-2xl font-bold text-foreground mb-4">
-                        In Action
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed text-lg">
-                        {getImageBDescription(currentData.id)}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Image Stack B */}
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ImageStack
-                      images={currentData.imageStack2}
-                      alt={`${currentData.title} in action and practice`}
-                      className="w-full"
-                    />
-                  </motion.div>
-                </motion.div>
-
-                {/* Center Description */}
-                <motion.div 
-                  className="text-center max-w-3xl mx-auto"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  <div className="glass-card p-8">
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      {currentData.description}
-                    </p>
-                  </div>
-                </motion.div>
+                          {/* Image on right for odd rows */}
+                          <div className="order-2 lg:order-2 transform-gpu">
+                            <ImageStack
+                              images={resolvedImages}
+                              alt={`${currentData.title} - ${row.title}`}
+                              className="w-full"
+                            />
+                          </div>
+                        </>
+                      )}
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           </AnimatePresence>

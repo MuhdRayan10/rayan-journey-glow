@@ -1,0 +1,57 @@
+{
+  "sections": [
+    {
+      "section": "Programming",
+      "tags": ["React", "TypeScript", "Node.js", "Python", "Full Stack"],
+      "rows": [
+        {
+          "title": "Africa & Arab Collegiate Programming Championship",
+          "description": "Represented Qatar 🇶🇦 in the Africa & Arab Collegiate Programming Championship, in Egypt; Qualified through national ICPC circuit; placed 19th in the contest; 4 day event of ~1000 participants",
+          "photostack": ["programming-workspace.webp", "programming-monitor.webp", "programming-code.webp", "programming-macbook.webp"]
+        },
+        {
+          "title": "Lead Organizer - Birla Competitive Programming Championship",
+          "description": "",
+          "photostack": ["programming-coding.webp", "programming-code.webp", "programming-workspace.webp", "programming-monitor.webp"]
+        },
+        {
+            "title": "abc",
+            "description": "A placeholder for future content. This section can be expanded with more programming-related achievements or projects.",
+            "photostack": ["chess-board.webp"]
+        }
+      ]
+    },
+    {
+      "section": "Debating",
+      "tags": ["Public Speaking", "Critical Thinking", "Leadership", "Tournaments", "Analysis"],
+      "rows": [
+        {
+          "title": "Mastering Persuasive Communication",
+          "description": "The debate stage where arguments are crafted and delivered. This is where critical thinking meets public speaking in competitive tournaments.",
+          "photostack": ["debate-stage.webp", "debate-display.webp", "debate-meeting.webp", "debate-stylus.webp"]
+        },
+        {
+          "title": "Recognition & Achievements",
+          "description": "Recognition for dedication and skill. Tournament achievements that represent countless hours of practice and intellectual growth.",
+          "photostack": ["debate-achievement.webp", "debate-display.webp", "debate-stage.webp", "debate-meeting.webp"]
+        }
+      ]
+    },
+    {
+      "section": "Chess",
+      "tags": ["Strategy", "Pattern Recognition", "Analysis", "Endgames", "Tournaments"],
+      "rows": [
+        {
+          "title": "Strategic Thinking & Pattern Recognition",
+          "description": "Strategic thinking in action. Every move calculated, every position analyzed. The chess board becomes a battlefield of minds.",
+          "photostack": ["chess-board.webp", "chess-laptop.webp", "chess-glass-table.webp", "chess-tournament.webp"]
+        },
+        {
+          "title": "Tournament Excellence",
+          "description": "Tournament competition at its finest. The intensity of competitive chess where strategy meets time pressure in pursuit of victory.",
+          "photostack": ["chess-tournament.webp", "chess-board.webp", "chess-laptop.webp", "chess-glass-table.webp"]
+        }
+      ]
+    }
+  ]
+}

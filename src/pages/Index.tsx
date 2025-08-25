@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { LandingPage } from '@/components/LandingPage';
 import { JourneySection } from '@/components/JourneySection';
 import { ContactPage } from '@/components/ContactPage';
@@ -6,34 +6,74 @@ import { CustomCursor } from '@/components/CustomCursor';
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState<'landing' | 'journey' | 'contact'>('landing');
+  const journeyRef = useRef<HTMLElement>(null);
+  const contactRef = useRef<HTMLElement>(null);
 
   const navigateToSection = (section: 'landing' | 'journey' | 'contact') => {
-    setCurrentSection(section);
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setCurrentSection(section);
+    }
   };
 
   const startJourney = () => {
-    setCurrentSection('journey');
+    navigateToSection('journey');
   };
 
   const backToLanding = () => {
-    setCurrentSection('landing');
+    navigateToSection('landing');
   };
 
+  // Handle scroll to update current section and animate sections
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.3,
+      rootMargin: '-10% 0px -10% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target.id as 'landing' | 'journey' | 'contact';
+          setCurrentSection(section);
+          
+          // Add visible class for animations
+          entry.target.classList.add('section-visible');
+        }
+      });
+    }, observerOptions);
+
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background cursor-none">
+    <div className="bg-background cursor-none">
       <CustomCursor />
       
-      {currentSection === 'landing' && (
-        <LandingPage onStartJourney={startJourney} onNavigate={navigateToSection} />
-      )}
+      {/* Landing Section */}
+      <section id="landing" className="min-h-screen section-animate">
+        <LandingPage 
+          onStartJourney={startJourney} 
+          onNavigate={navigateToSection} 
+          currentSection={currentSection}
+        />
+      </section>
       
-      {currentSection === 'journey' && (
+      {/* Journey Section */}
+      <section id="journey" className="min-h-screen section-animate" ref={journeyRef}>
         <JourneySection onBackToLanding={backToLanding} />
-      )}
+      </section>
       
-      {currentSection === 'contact' && (
+      {/* Contact Section */}
+      <section id="contact" className="min-h-screen section-animate" ref={contactRef}>
         <ContactPage onNavigate={navigateToSection} />
-      )}
+      </section>
     </div>
   );
 };

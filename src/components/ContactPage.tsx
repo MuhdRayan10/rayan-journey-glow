@@ -4,9 +4,10 @@ import profilePhoto from '@/assets/profile-photo.png';
 
 interface ContactPageProps {
   onNavigate: (section: 'landing' | 'journey' | 'contact') => void;
+  currentSection?: string;
 }
 
-export const ContactPage = ({ onNavigate }: ContactPageProps) => {
+export const ContactPage = ({ onNavigate, currentSection = 'contact' }: ContactPageProps) => {
   const contactInfo = [
     {
       label: 'Name',

@@ -87,6 +87,85 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 0;
+  }
+
+  /* Improved scroll behavior for better UX */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Section transitions */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-animate {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .section-animate:not(.section-visible):not(#landing) {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .section-animate.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Landing section is always visible */
+  #landing {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Performance optimizations */
+  .transform-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Modern button animations */
+  @keyframes borderPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { 
+      transform: scale(0) rotate(0deg);
+      opacity: 0; 
+    }
+    50% { 
+      transform: scale(1) rotate(180deg);
+      opacity: 1; 
+    }
+  }
+
+  @keyframes energyWave {
+    0% { 
+      transform: scale(0.8);
+      opacity: 0.8; 
+    }
+    50% { 
+      transform: scale(1.1);
+      opacity: 0.4; 
+    }
+    100% { 
+      transform: scale(1.3);
+      opacity: 0; 
+    }
   }
 
   /* Hide the default system curosr */
@@ -253,5 +332,118 @@ All colors MUST be HSL. Pure black & white aesthetic with glassmorphism.
   .blob.expanded {
     transform: scale(1.2);
     box-shadow: 0 0 60px rgba(255, 255, 255, 0.2), 0 20px 80px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Gradient Sweep Effect */
+  .sweep {
+    background: linear-gradient(90deg, #ec4899 0%, #a855f7 50%, #d946ef 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    transition: background-position 0.75s ease;
+  }
+
+  .sweep:hover { 
+    background-position: 100% center; 
+  }
+
+  @media (prefers-reduced-motion: reduce) { 
+    .sweep {
+      transition: none;
+    } 
+  }
+
+  /* Chalk-drawn Curved Arrow Animation */
+  .chalk-curved-arrow {
+    position: relative;
+    width: 60px;
+    height: 50px;
+    cursor: pointer;
+  }
+
+  /* Curved arrow path using SVG-like approach with CSS */
+  .chalk-curved-arrow::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 30px;
+    border: 2px solid transparent;
+    border-radius: 0 0 40px 0;
+    border-bottom: 2px solid #ffffff;
+    border-right: 2px solid #ffffff;
+    left: 5px;
+    top: 5px;
+    transform: rotate(-10deg);
+    opacity: 0;
+    animation: draw-curve 3s ease-in-out infinite;
+    filter: 
+      drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+  }
+
+  /* Arrow tip */
+  .chalk-curved-arrow::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid #ffffff;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    right: 8px;
+    bottom: 12px;
+    transform: rotate(15deg);
+    opacity: 0;
+    animation: draw-arrow-tip 3s ease-in-out infinite;
+    filter: 
+      drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+  }
+
+  @keyframes draw-curve {
+    0% { 
+      opacity: 0;
+      border-bottom: 2px solid transparent;
+      border-right: 2px solid transparent;
+    }
+    20% { 
+      opacity: 0.9;
+      border-bottom: 2px solid #ffffff;
+      border-right: 2px solid transparent;
+    }
+    50% { 
+      opacity: 0.9;
+      border-bottom: 2px solid #ffffff;
+      border-right: 2px solid #ffffff;
+    }
+    100% { 
+      opacity: 0.9;
+      border-bottom: 2px solid #ffffff;
+      border-right: 2px solid #ffffff;
+    }
+  }
+
+  @keyframes draw-arrow-tip {
+    0%, 50% { 
+      opacity: 0;
+      transform: rotate(15deg) scale(0);
+    }
+    70% { 
+      opacity: 0.9;
+      transform: rotate(15deg) scale(1);
+    }
+    100% { 
+      opacity: 0.9;
+      transform: rotate(15deg) scale(1);
+    }
+  }
+
+  /* Chalk texture effect */
+  .chalk-texture {
+    filter: 
+      drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.4))
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
   }
 }

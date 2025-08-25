@@ -9,6 +9,7 @@ interface ImageStackProps {
 
 export const ImageStack = ({ images, alt, className = '' }: ImageStackProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleStackClick = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -26,6 +27,8 @@ export const ImageStack = ({ images, alt, className = '' }: ImageStackProps) => 
       className={`relative cursor-pointer select-none group ${className}`}
       onClick={handleStackClick}
       onKeyDown={handleKeyDown}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       tabIndex={0}
       role="button"
       aria-label={`Image stack: ${alt}. Click to cycle through ${images.length} images`}
@@ -47,22 +50,24 @@ export const ImageStack = ({ images, alt, className = '' }: ImageStackProps) => 
               initial={false}
               animate={{
                 zIndex: isActive ? 20 : Math.max(0, 15 - offsetIndex * 3),
-                scale: isActive ? 1 : Math.max(0.8, 1 - offsetIndex * 0.1),
+                scale: isActive ? (isHovered ? 1.02 : 1) : Math.max(0.8, 1 - offsetIndex * 0.1),
                 x: offsetIndex * 20,
                 y: offsetIndex * 24,
                 opacity: isActive ? 1 : Math.max(0.5, 1 - offsetIndex * 0.3),
               }}
               transition={{
-                duration: 0.3,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                duration: isHovered ? 0.2 : 0.3,
+                ease: "easeOut",
+                scale: { duration: 0.2 },
               }}
               style={{
                 inset: '0',
                 margin: '0 24px 24px 0', // Create space for offsets
+                willChange: 'transform, opacity', // Optimize for animations
               }}
             >
               <div 
-                className={`w-full h-full rounded-lg overflow-hidden glass-card ${
+                className={`w-full h-full rounded-lg overflow-hidden glass-card transition-shadow duration-200 ${
                   isActive 
                     ? 'shadow-2xl shadow-white/30 ring-1 ring-white/20' 
                     : 'shadow-lg shadow-black/30'
@@ -71,8 +76,9 @@ export const ImageStack = ({ images, alt, className = '' }: ImageStackProps) => 
                 <img
                   src={image}
                   alt={`${alt} - Image ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transform-gpu"
                   loading={index <= 1 ? "eager" : "lazy"}
+                  style={{ willChange: 'transform' }}
                 />
                 
                 {/* Subtle overlay for background images */}
@@ -85,18 +91,28 @@ export const ImageStack = ({ images, alt, className = '' }: ImageStackProps) => 
         })}
         
         {/* Click indicator - simplified */}
-        <div className="absolute bottom-1 right-1 z-30 pointer-events-none">
+        <motion.div 
+          className="absolute bottom-1 right-1 z-30 pointer-events-none"
+          initial={{ opacity: 0.7 }}
+          animate={{ opacity: isHovered ? 1 : 0.7 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="glass rounded-full px-2 py-1 text-xs font-mono text-white/70">
             {currentIndex + 1}/{images.length}
           </div>
-        </div>
+        </motion.div>
         
         {/* Hint text - only show on hover */}
-        <div className="absolute top-1 left-1 z-30 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        <motion.div 
+          className="absolute top-1 left-1 z-30 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
           <div className="text-xs text-white/50 font-medium">
             Click to cycle
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
