@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -20,6 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -53,4 +57,4 @@ jobs:
         # If you want the action to set your custom domain automatically on each deploy,
         # uncomment the following lines and set your domain (e.g., example.com):
         # with:
-        #   cname: yourdomain.com
+        #   cname: rayantech.me
