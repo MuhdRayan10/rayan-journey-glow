@@ -2,54 +2,163 @@
   "sections": [
     {
       "section": "Programming",
-      "tags": ["React", "TypeScript", "Node.js", "Python", "Full Stack"],
+      "tags": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "Full Stack"
+      ],
       "rows": [
         {
           "title": "Africa & Arab Collegiate Programming Championship",
-          "description": "Represented Qatar 🇶🇦 in the Africa & Arab Collegiate Programming Championship, in Egypt; Qualified through national ICPC circuit; placed 19th in the contest; 4 day event of ~1000 participants",
-          "photostack": ["programming-workspace.webp", "programming-monitor.webp", "programming-code.webp", "programming-macbook.webp"]
+          "description": "Represented Qatar \ud83c\uddf6\ud83c\udde6 in the Africa & Arab Collegiate Programming Championship, in Egypt; Qualified through national ICPC circuit; placed 19th in the contest; 4 day event of ~1000 participants",
+          "photostack": [
+            "programming-workspace.webp",
+            "programming-monitor.webp",
+            "programming-code.webp",
+            "programming-macbook.webp"
+          ]
         },
         {
           "title": "Lead Organizer - Birla Competitive Programming Championship",
-          "description": "",
-          "photostack": ["programming-coding.webp", "programming-code.webp", "programming-workspace.webp", "programming-monitor.webp"]
+          "description": "\ud83d\udc68\u200d\ud83d\udcbb Founder & Lead Organizer, Birla Competitive Programming Championship (BCPC25)\n\u2022 Launched Qatar\u2019s first inter\u2011school CP contest; directed event for 22 teams (44 students) from 11 schools, \n\u2022 Designed original 7\u2011problem set (C++, Python); built live automated judging platform with fallback server ensuring 100% uptime, < 0.5s average grading latency for 250+ submissions\n\u2022 Handled infrastructure (Ubuntu/Docker/Powershell), outreach, and visual design",
+          "photostack": [
+            "programming-coding.webp",
+            "programming-code.webp",
+            "programming-workspace.webp",
+            "programming-monitor.webp"
+          ]
         },
         {
-            "title": "abc",
-            "description": "A placeholder for future content. This section can be expanded with more programming-related achievements or projects.",
-            "photostack": ["chess-board.webp"]
-        }
-      ]
-    },
-    {
-      "section": "Debating",
-      "tags": ["Public Speaking", "Critical Thinking", "Leadership", "Tournaments", "Analysis"],
-      "rows": [
-        {
-          "title": "Mastering Persuasive Communication",
-          "description": "The debate stage where arguments are crafted and delivered. This is where critical thinking meets public speaking in competitive tournaments.",
-          "photostack": ["debate-stage.webp", "debate-display.webp", "debate-meeting.webp", "debate-stylus.webp"]
-        },
-        {
-          "title": "Recognition & Achievements",
-          "description": "Recognition for dedication and skill. Tournament achievements that represent countless hours of practice and intellectual growth.",
-          "photostack": ["debate-achievement.webp", "debate-display.webp", "debate-stage.webp", "debate-meeting.webp"]
+          "title": "National Champions - Qatar Collegiate Programming Competition (Teens) 2025, ",
+          "description": "\ud83e\udd47National Champions, Qatar Collegiate Programming Competition (Teens) \u2014 Placed 1st out of 95+ national school teams; ranked 12th among 40 university teams on identical ICPC problem set; used C++ and Python to solve algorithmic problems involving graph theory, dynamic programming, etc., Qualified for representing Qatar in ACPC.\n\n\ud83e\udd48 National Runner-up, Qatar Collegiate Programming Competition in 2024",
+          "photostack": [
+            "chess-board.webp"
+          ]
         }
       ]
     },
     {
       "section": "Chess",
-      "tags": ["Strategy", "Pattern Recognition", "Analysis", "Endgames", "Tournaments"],
+      "tags": [
+        "Strategy",
+        "Pattern Recognition",
+        "Analysis",
+        "Endgames",
+        "Tournaments"
+      ],
       "rows": [
         {
           "title": "Strategic Thinking & Pattern Recognition",
           "description": "Strategic thinking in action. Every move calculated, every position analyzed. The chess board becomes a battlefield of minds.",
-          "photostack": ["chess-board.webp", "chess-laptop.webp", "chess-glass-table.webp", "chess-tournament.webp"]
+          "photostack": [
+            "chess-board.webp",
+            "chess-laptop.webp",
+            "chess-glass-table.webp",
+            "chess-tournament.webp"
+          ]
         },
         {
           "title": "Tournament Excellence",
           "description": "Tournament competition at its finest. The intensity of competitive chess where strategy meets time pressure in pursuit of victory.",
-          "photostack": ["chess-tournament.webp", "chess-board.webp", "chess-laptop.webp", "chess-glass-table.webp"]
+          "photostack": [
+            "chess-tournament.webp",
+            "chess-board.webp",
+            "chess-laptop.webp",
+            "chess-glass-table.webp"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Speaking",
+      "tags": [
+        "Debating",
+        "Workshops",
+        "Student Council",
+        "Model UN"
+      ],
+      "rows": [
+        {
+          "title": "Debate National Champion, QPSDL (2022)",
+          "description": "\ud83c\udfa4 QatarDebate National Champion, QPSDL (2022) \u2014 Won 1st place among 50+ teams in national prep league.",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        },
+        {
+          "title": "Conducted CS Workshops at National Museum of Qatar",
+          "description": "\ud83d\udc68\u200d\ud83d\udcbb In collaboration with Microsoft; Delivered two 2\u2011hour workshops on cryptography and Python fundamentals to ~20 high schoolers; sponsored by Microsoft; Covered classical encryption, public & private keys, steganography, RSA encryption, etc.",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Leadership",
+      "tags": [],
+      "rows": [
+        {
+          "title": "BPSMUN 25 - Secretary General",
+          "description": "\ud83e\uddd1\u200d\u2696\ufe0f Secretary-General, BPSMUN 2025 \u2014 Led 35-person executive team to host 150+ delegates; introduced crisis committees, chaired training program, and oversaw logistics and marketing (@bpsmun.25)",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        },
+        {
+          "title": "Head Boy of Birla Public School",
+          "description": "\ud83c\udf93 Head Boy, Birla Public School (2025\u201326) \u2014 Elected to lead 8000+ students; directed prefect council, coordinated school-wide initiatives & events, created a graduation planning committee, implemented tech based solutions school-wide\n\ud83d\udc66 Head Boy, Middle School (2021\u201322) \u2014 Oversaw grade-level discipline & peer mentoring for 500+ students.",
+          "photostack": [
+            "chess-laptop.webp"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Academics",
+      "tags": [
+        "Math",
+        "Computer Science",
+        "SAT",
+        "APs"
+      ],
+      "rows": [
+        {
+          "title": "Silver Medallist - World Math Team Championship 2024",
+          "description": "\ud83e\udd48 Silver Medalist, World Math Team Championship 2024 \u2014 Competed among 767 global students; received Top Team Award in Advanced category (teams from USA, China, India, Bulgaria etc.)",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        },
+        {
+          "title": "Gold Medalist, National Mathematics Olympiad Contest India",
+          "description": "\ud83e\udd47 Gold Medalist, National Mathematics Olympiad Contest \u2014 Recognized and Felicitated by All India Mathematics Teachers Association for top national performance.",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        },
+        {
+          "title": "Gold Medalist, Infinity Math Olympiad",
+          "description": "\ud83e\udd47 Individual Gold & Top Team, Infinity Math Olympiad, Mumbai conducted by BITS Pilani & IIT Bombay \u2014 Finalist team among 1500+ national competitors.\nMultiple other Regional and National Math Competition awards",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        },
+        {
+          "title": "SAT - 1560,  AP Testing",
+          "description": "Scored 1560 in the SAT, 760R, 800M;\nTook AP Calculus BC (5) and AP CSA (5) \n",
+          "photostack": [
+            "chess-board.webp"
+          ]
+        },
+        {
+          "title": "School Academic Performance",
+          "description": "Predicted Scores for 12th\n\nMathematics - 99, \nComputer Science - 99, \nChemistry - 98, \nPhysics - 97, \nEnglish - 99",
+          "photostack": [
+            "chess-board.webp"
+          ]
         }
       ]
     }
