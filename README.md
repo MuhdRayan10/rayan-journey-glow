@@ -62,12 +62,14 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/12a7eb39-a3a4-4afc-a9b5-c73842865678) and click on Share -> Publish.
+GitHub Actions deploys the site to GitHub Pages automatically every time `main` is updated. No manual steps are required once the workflow succeeds.
 
-## Can I connect a custom domain to my Lovable project?
+1. Push your changes to `main`.
+2. Watch the **Deploy to GitHub Pages** workflow under the **Actions** tab.
+3. Once it finishes, GitHub Pages serves the content from the generated `dist` bundle.
 
-Yes, you can!
+To force a re-deploy without new commits, use the **Run workflow** button on the workflow page.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Can I use a custom domain?
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Yes! Update `public/CNAME` with your domain and point the domain's DNS records to GitHub Pages. The deployment pipeline automatically copies the CNAME file into the published site. After DNS propagates, set the custom domain under **Settings → Pages** in GitHub.
